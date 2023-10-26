@@ -1,3 +1,6 @@
+<!-- templates/_base.html -->
+{% load static %}
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -10,7 +13,7 @@
         <title>{% block title %} Bookstore {% endblock title%}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="{% static "css/base.css" %}">
     </head>
     <body>
         <div class="container">
@@ -18,6 +21,6 @@
             Dont't use this directly.
             {% endblock content%}
         </div>
-        <script src="" async defer></script>
+        <script src="{% static 'js/base.js' %}" async defer></script>
     </body>
 </html>
