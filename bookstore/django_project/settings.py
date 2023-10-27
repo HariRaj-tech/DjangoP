@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from environs import Env
+
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-t_@%9i%$@w*x!h5b8=a^f*laqq%ol!^a$e5$gj_rsoo#(w14-t"
+SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DJANGO_DEBUG")
 
 ALLOWED_HOSTS = []
 
@@ -90,14 +94,7 @@ WSGI_APPLICATION = "django_project.wsgi.application"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
-        "HOST": "db",
-        "PORT": 5432,
-    }
+    "default": env.dj_db_url("DATABASE_URL", default="postgres://postgres@db/postgres")
 }
 
 
@@ -156,7 +153,6 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 )
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 ACCOUNT_LOGOUT_REDIRECT = "home"
 ACCOUNT_SESSION_REMEMBER = True
@@ -168,4 +164,15 @@ ACCOUNT_UNIQUE_EMAIL = True
 
 
 # Github Config
-ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+
+# Google auuath config
+SOCIAL_ACCOUNT_QUERY_EMAIL = True
+ACCOUNT_LOGOUT_ON_GET = True
+# ACCOUNT_UNIQUE_EMAIL = True
+# ACCOUNT_EMAIL_REQUIRED = True
+
+
+# Email Config
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+DEFAULT_EMAIL_FROM = "admin@djangobookstroe.com"
