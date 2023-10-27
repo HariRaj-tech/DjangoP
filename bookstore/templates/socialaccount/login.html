@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+
+
+{% block content %}
+<div class="m-auto w-[50%] m-auto border  rounded-lg">
+    <h1 class="text-center bg-gray-100 h-[52px] font-bold text-3xl">Sign In</h1>
+
+
+    <h2 class="text-center my-3">You are about to use third party authentication!
+    </h2>
+    <form method="post">
+        <div class="justify-center">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">Continue</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "allauth",
     "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.github",
+    "allauth.socialaccount.providers.google",
     # User Apps
     "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig",
@@ -162,3 +165,7 @@ ACCOUNT_AUTHENTICATION_MEHTOD = "email"
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
+
+
+# Github Config
+ACCOUNT_EMAIL_VERIFICATION = "none"
