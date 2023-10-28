@@ -13,6 +13,18 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 from environs import Env
 
+# Debug Toolbar Config
+
+import socket
+
+hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+INTERNAL_IPS = [ip[:-1] + "1" for ip in ips] + [
+    "127.0.0.1",
+    "192.168.65.1",
+]  # Docker internal ip 192.168.65.0/24
+
+
+# Environ Config
 env = Env()
 env.read_env()
 
@@ -50,6 +62,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.github",
     "allauth.socialaccount.providers.google",
+    "debug_toolbar",
     # User Apps
     "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig",
@@ -68,6 +81,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "django_project.urls"

@@ -35,6 +35,13 @@ class SearchResultsListView(ListView):
     # queryset = Book.objects.filter(title__icontains="api")
 
     def get_queryset(self):
+        user_ip = self.request.META.get("HTTP_X_FORWARDED_FOR")
+        if user_ip:
+            ip = user_ip.split(",")[0]
+        else:
+            ip = self.request.META.get("REMOTE_ADDR")
+
+        print("Request from : ", ip)
         query = self.request.GET.get("q")
         return Book.objects.filter(
             Q(title__icontains=query) | Q(author__icontains=query)
