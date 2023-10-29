@@ -9,6 +9,7 @@ class Book(models.Model):
         primary_key=True,
         default=uuid.uuid4,
         editable=False,
+        db_index=True,  # Indexing in database
     )
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200)
@@ -18,6 +19,9 @@ class Book(models.Model):
     class Meta:
         permissions = [
             ("special_status", "Can read all books"),
+        ]
+        indexes = [
+            models.Index(fields=["id"], name="id_index"),
         ]
 
     def __str__(self):

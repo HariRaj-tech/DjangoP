@@ -6,7 +6,7 @@ from .models import Book, Review
 
 class ReviewInline(admin.TabularInline):
     model = Review
-    max_num = 2  # Defines no of rows
+    # max_num = 2  # Defines no of rows
 
 
 class BookAdmin(admin.ModelAdmin):

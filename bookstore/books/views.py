@@ -26,6 +26,9 @@ class BookDetailView(
     context_object_name = "book"
     login_url = "account_login"
     permission_required = "books.special_status"
+    queryset = Book.objects.all().prefetch_related(
+        "reviews__author",
+    )
 
 
 class SearchResultsListView(ListView):
